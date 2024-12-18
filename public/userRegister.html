@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用户注册</title>
+  <style>
+    form {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h2>注册新用户</h2>
+  <form action="/stus/studentRegister" method="POST">
+    <div>用户名: <input type="text" name="name" required /></div>
+    <div>密码: <input type="password" name="pwd" required /></div>
+    <div>年龄: <input type="number" name="age" required /></div>
+    <div>性别: <input type="text" name="gender" required /></div>
+    <div>地址: <input type="text" name="address" required /></div>
+    <div>
+      <input type="submit" value="注册" />
+    </div>
+  </form>
+</body>
+</html>
