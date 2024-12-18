@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>修改电影信息</title>
+
+        <style>
+            .input-container {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .input-large {
+                width: 80%;  
+                height: 50px;  
+                font-size: 16px; 
+            }
+        </style>
+    </head>
+    <body>
+        <h1>修改电影信息</h1>
+
+        <!-- 点击 修改按钮，提交给 /movies/update 路由，post方式模拟put -->
+        <form action="/movs/movies/update" method="post">
+
+            <!-- 电影中的信息回显到相应位置 -->
+
+            <!-- id的值在路由 /movies/update 中需要，但是页面上不能显示出来 -->
+            <!-- hidden是一个隐藏的表单项，可以通过它传递一些不希望被用户看见的数据 -->
+            <input type="hidden" name="id" value="<%= movie.id %>" />
+
+            <div class="input-container">
+                电影ID：<input type="text" name="filmId" value="<%= movie.filmId %>" class="input-large" />
+            </div>
+            
+            <div class="input-container">
+                电影名称：<input type="text" name="name" value="<%= movie.name %>" class="input-large" />
+            </div>
+            
+            <div class="input-container">
+                描述：<input type="text" name="description" value="<%= movie.description %>" class="input-large" />
+            </div>
+            
+            <div class="input-container">
+                热度：<input type="number" max="100" min="0" name="popularity" value="<%= movie.popularity %>" class="input-large" />
+            </div>
+
+            <div>
+                <button>修改</button>
+            </div>
+        </form>
+    </body>
+</html>

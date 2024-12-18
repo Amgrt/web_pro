@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>电影列表</title>
+        <link rel="stylesheet" href="/css/index.css">
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px #000 solid;
+                font-size: 20px;
+                padding: 10px;
+                text-align: center;
+            }
+
+            caption {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <!-- 显示当前用户 -->
+        <h2>当前用户：<%= loginUserName %></h2>
+
+        <!-- 添加 “登出”功能 -->
+        <a href="/stus/students/logout">登出</a>
+
+        <% if (loginUserName === 'admin') { %>
+            <a href="/stus/students">用户列表</a>
+        <% } %>
+
+        <hr />
+
+        
+        <!-- 判断用户是否为 admin -->
+        <% if (loginUserName === 'admin') { %>
+            <!-- 如果是 admin 用户，显示操作按钮 -->
+            <% if (movies && movies.length > 0) { %>
+
+            <table>
+                <caption>
+                    电影列表
+                </caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>电影ID</th>
+                        <th>电影名称</th>
+                        <th>海报</th>
+                        <th>热度</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% for (const movie of movies) { %>
+                    <tr>
+                        <td><%= movie.id %></td>
+                        <td><%= movie.filmId %></td>
+                        <td><%= movie.name %></td>
+                        <td><img src="<%= movie.posterUrl %>" alt="海报"></td>
+                        <td><%= movie.popularity %></td>
+                        <td>
+                            <a onclick="return confirm('确认删除这部电影吗？')" href="/movs/movies/delete/<%= movie.id %>">删除</a>
+                            <a href="/movs/movies/update/<%= movie.id %>">修改</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <% } else { %>
+                <p>电影列表为空！</p>
+            <% } %>
+
+            <hr />
+
+            <!-- 添加电影表单 -->
+            <form action="/movs/movies/addmovie" method="post">
+                <!-- 如果有错误信息，则显示出来 -->
+                <% if (errorMessage) { %>
+                    <script>
+                      window.onload = function() {
+                        alert("<%= errorMessage %>");
+                      }
+                    </script>
+                <% } %>
+
+                <div>电影ID：<input type="text" name="filmId" /></div>
+                <div>电影名称：<input type="text" name="name" /></div>
+                <div>描述：<input type="text" name="description" /></div>
+                <div>海报URL：<input type="text" name="posterUrl" /></div>
+                <div>热度：<input type="number" max="100" min="0" name="popularity" /></div>
+                <div><button>添加</button></div>
+            </form>
+
+        <% } else { %>
+            <!-- 如果不是 admin 用户，显示简单的电影列表 -->
+            <% if (movies && movies.length > 0) { %>
+
+            <table>
+                <caption>
+                    电影列表
+                </caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>电影ID</th>
+                        <th>电影名称</th>
+                        <th>海报</th>
+                        <th>热度</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% for (const movie of movies) { %>
+                    <tr>
+                        <td><%= movie.id %></td>
+                        <td><%= movie.filmId %></td>
+                        <td><%= movie.name %></td>
+                        <td><img src="<%= movie.posterUrl %>" alt="海报"></td>
+                        <td><%= movie.popularity %></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <% } else { %>
+                <p>电影列表为空！</p>
+            <% } %>
+        <% } %>
+
+        <hr />
+    </body>
+</html>
